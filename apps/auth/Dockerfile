@@ -9,10 +9,10 @@ COPY nest-cli.json nest-cli.json
 
 RUN npm i -g pnpm
 
+RUN pnpm install -r
+
 COPY apps/auth apps/auth
 COPY libs libs
-
-RUN cd apps/auth && pnpm install
 
 RUN pnpm run build auth
 
@@ -28,9 +28,7 @@ COPY pnpm-lock.yaml ./
 
 RUN npm i -g pnpm
 
-RUN pnpm install
-
-RUN pnpm install --prod
+RUN pnpm i --prod
 
 COPY --from=development /usr/src/app/dist ./dist
 

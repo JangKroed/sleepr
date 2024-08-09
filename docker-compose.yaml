@@ -10,7 +10,7 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - .:/usr/src/app
+      - ./apps/reservations:/usr/src/app/apps/reservations/
   auth:
     build:
       context: .
@@ -22,7 +22,7 @@ services:
     ports:
       - '3001:3001'
     volumes:
-      - .:/usr/src/app
+      - ./apps/auth:/usr/src/app/apps/auth/
   payments:
     build:
       context: .
@@ -32,7 +32,7 @@ services:
     env_file:
       - ./apps/payments/.env
     volumes:
-      - .:/usr/src/app
+      - ./apps/payments:/usr/src/app/apps/payments/
   notifications:
     build:
       context: .
@@ -42,6 +42,6 @@ services:
     env_file:
       - ./apps/notifications/.env
     volumes:
-      - .:/usr/src/app
+      - ./apps/notifications:/usr/src/app/apps/notifications/
   mongo:
     image: mongo
