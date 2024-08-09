@@ -14,18 +14,16 @@ export class PaymentsService {
 
   constructor(private readonly configService: ConfigService) {}
 
-  async createCharge({ card, amount }: CreateChargeDto) {
-    const paymentMetod = await this.stripe.paymentMethods.create({
-      type: 'card',
-      card,
-    });
-
+  async createCharge({ amount }: CreateChargeDto) {
     const paymentIntent = await this.stripe.paymentIntents.create({
-      payment_method: paymentMetod.id,
+      payment_method: 'pm_card_visa',
       amount: amount * 100,
       confirm: true,
-      payment_method_types: ['card'],
       currency: 'usd',
+      automatic_payment_methods: {
+        enabled: true,
+        allow_redirects: 'never', // 리디렉션 비활성화
+      },
     });
 
     return paymentIntent;
